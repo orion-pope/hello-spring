@@ -1,6 +1,7 @@
 package com.dooly.hellospring.repository;
 
 import com.dooly.hellospring.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
