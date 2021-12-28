@@ -1,30 +1,24 @@
 package com.dooly.hellospring.service;
 
 import com.dooly.hellospring.domain.Member;
+import com.dooly.hellospring.repository.MemberRepository;
 import com.dooly.hellospring.repository.MemoryMemberRepository;
 import com.dooly.hellospring.repository.MemoryMemberRepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class MemberServiceTest {
 
-    MemberService memberService;
-    MemoryMemberRepository memoryMemberRepository;
-
-    @BeforeEach
-    public void beforeEach() {
-        memoryMemberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memoryMemberRepository);
-    }
-
-    @AfterEach
-    public void afterEach() {
-        memoryMemberRepository.clearStore();
-    }
+    @Autowired MemberService memberService;
+    @Autowired MemberRepository memberRepository;
 
     @Test
     void 회원가입() {
@@ -36,8 +30,8 @@ class MemberServiceTest {
         Long savedId = memberService.join(member);
 
         // then
-        Member findedMember = memberService.findOne(savedId).get();
-        assertThat(member.getName()).isEqualTo(findedMember.getName());
+        Member findMember = memberService.findOne(savedId).get();
+        assertThat(member.getName()).isEqualTo(findMember.getName());
     }
 
     @Test
@@ -56,11 +50,4 @@ class MemberServiceTest {
         // then
     }
 
-    @Test
-    void findMembers() {
-    }
-
-    @Test
-    void findOne() {
-    }
 }

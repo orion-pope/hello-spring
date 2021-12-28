@@ -39,7 +39,7 @@ public class MemoryMemberRepositoryTest {
 
         repository.save(member);
 
-        Member result = repository.findByname("휴지").get();
+        Member result = repository.findByName("휴지").get();
 
         assertThat(member).isEqualTo(result);
     }
